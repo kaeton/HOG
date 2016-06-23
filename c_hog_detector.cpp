@@ -1,3 +1,7 @@
+#include <iostream>
+#include <string>
+#include <fstream>
+#include <vector>
 #include </usr/local/include/opencv2/core/core.hpp>
 #include </usr/local/include/opencv2/imgproc/imgproc.hpp>
 #include </usr/local/include/opencv2/highgui/highgui.hpp>
@@ -11,9 +15,11 @@ using namespace cv;
 //円周率
 const double PI = 3.141592;
 // 8px * 8px
-const vector<int> CELL_SIZE[2] = {8, 8};
+// const vector<int> CELL_SIZE[2] = {8, 8};
+const int CELL_SIZE[2] = {8, 8};
 // 2cell * 2cell
-const vector<int> BLOCK_SIZE[2] = { 2, 2 };
+// const vector<int> BLOCK_SIZE[2] = { 2, 2 };
+const int BLOCK_SIZE[2] = { 2, 2 };
 //0度 - 180度 (20度ごと)
 const int GRADIENT_SIZE = 9;
  
@@ -143,13 +149,13 @@ void hogDesc( Mat& img, vector<double>& hog ){
         }
     }
  
-    //正規化回数
+    // 正規化回数
     int normalizeNum = ( img.rows / CELL_SIZE[1] - ( BLOCK_SIZE[1] - 1) ) * ( img.cols / CELL_SIZE[0] - ( BLOCK_SIZE[0] - 1 ) );
     //ブロック数
     int blockNum = BLOCK_SIZE[0] * BLOCK_SIZE[1];
     //HOG特徴量
     vector<double> result( normalizeNum * blockNum * GRADIENT_SIZE );
- 
+    
     //HOG特徴量を計算する
     int count = 0;
     for ( int i = 0; i < img.rows / CELL_SIZE[1] - ( BLOCK_SIZE[1] - 1); i++ ){
@@ -179,7 +185,7 @@ void hogDesc( Mat& img, vector<double>& hog ){
 ////////////////////////////////////
 int main(){
     //画像
-    Mat srcImg = imread( "pic01.jpg", CV_LOAD_IMAGE_GRAYSCALE );
+    Mat srcImg = imread( "google.jpg", CV_LOAD_IMAGE_GRAYSCALE );
      
     //HOG特徴量を取り出す
     vector<double> hog;
